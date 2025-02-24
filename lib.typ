@@ -3,7 +3,7 @@
 #let database = toml("lang.toml")
 
 #let colors = (
-  psl: rgb(36, 56, 141),
+  psl: rgb(36, 56, 142),
 )
 
 #let psl-front-cover(
@@ -161,6 +161,13 @@
     #heading(level: 1, outlined: false)[Keywords]
     #text(size: 0.9em)[#keywords.en]
   ]
+
+  context place(
+    bottom + right,
+    dx: page.margin.right + 2cm,
+    dy: page.margin.bottom + 2cm,
+    circle(radius: 2cm, fill: colors.psl),
+  )
 }
 
 #let psl-thesis-covers(

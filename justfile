@@ -11,10 +11,10 @@ imagemagick := "convert"
 @local:
     rm -rf ~/.local/share/typst/packages/local/psl-thesis/{{version}}
     mkdir -p ~/.local/share/typst/packages/local/psl-thesis
-    cp -r . ~/.local/share/typst/packages/local/psl-thesis/{{version}}
+    ln -s $(pwd) ~/.local/share/typst/packages/local/psl-thesis/{{version}}
 
 # Build the template.
-@template:
+@template: local
     sed -i 's/@preview\/psl-thesis/@local\/psl-thesis/' template/main.typ
     {{typst}} compile template/main.typ
     sed -i 's/@local/@preview/' template/main.typ

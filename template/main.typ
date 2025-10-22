@@ -38,7 +38,10 @@
 
 
 #show: psl-thesis-covers.with(
-  title: [Recherches sur les substances radioactives],
+  titles: (
+    fr: [Recherches sur les substances radioactives],
+    en: [Research on radioactive substances],
+  ),
   author: [Marie Skłodowska-Curie],
   date: [le 25 juin 1903],
   doctoral-school: (name: [Faculté des sciences], number: [123]),

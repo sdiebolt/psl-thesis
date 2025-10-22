@@ -7,8 +7,11 @@
 )
 
 #let psl-front-cover(
-  // The thesis title.
-  title: [PhD title],
+  // The thesis titles, in French and English.
+  titles: (
+    fr: [Titre],
+    en: [Title],
+  ),
   // The thesis author.
   author: [Thesis author],
   // The institution name.
@@ -39,16 +42,18 @@
       role: "Referee",
     ),
   ),
+  margin: (left: 2cm, right: 1.5cm, top: 2cm, bottom: 6cm),
 ) = {
   // Page setup.
   set page(
     background: image("assets/front-bg.jpg"),
-    margin: (left: 2cm, right: 1.5cm, top: 2cm, bottom: 6cm),
+    margin: margin,
     footer: [
       #if institute-logo != none {
         align(center)[#institute-logo]
       }
     ],
+    footer-descent: 0%,
   )
   set text(size: 14pt)
 
@@ -57,16 +62,18 @@
   block(text(linguify("conducted_at", from: database) + [ #institute], fill: colors.psl), width: 10cm)
 
   // Thesis title.
-  v(1cm)
+  v(0.5cm)
   align(center)[
-    #text([*#title*], size: 16pt)
+    #text([*#titles.en*], size: 15pt)
+    #line(length: 100%)
+    #text([*#titles.fr*], size: 15pt)
   ]
 
   // Thesis author, doctoral school, specialty, and jury members.
   v(0.5cm)
 
   let make-jury-table = {
-    set text(size: 11pt)
+    set text(size: 10pt)
     table(
       columns: (1fr, 0.6fr),
       stroke: none,
@@ -132,13 +139,12 @@
     fr: [mot clé 1, mot clé 2, mot clé 3, mot clé 4],
     en: [keyword 1, keyword 2, keyword 3, keyword 4],
   ),
+  text-size: 10pt,
+  margin: (left: 2cm, right: 1.5cm, top: 2cm, bottom: 4.5cm),
 ) = {
   pagebreak()
 
-  set page(
-    background: place(top + left, image("assets/back-bg.png")),
-    margin: (left: 2cm, right: 1.5cm, top: 2cm, bottom: 4.5cm),
-  )
+  set page(background: place(top + left, image("assets/back-bg.png")), margin: margin)
 
   show heading: it => {
     set text(fill: colors.psl, weight: "light")
@@ -150,16 +156,16 @@
   set par(justify: true)
   align(horizon)[
     #heading(level: 1, outlined: false)[Résumé]
-    #text(size: 0.9em)[#abstracts.fr]
+    #text(size: text-size)[#abstracts.fr]
 
     #heading(level: 1, outlined: false)[Mots clés]
-    #text(size: 0.9em)[#keywords.fr]
+    #text(size: text-size)[#keywords.fr]
 
     #heading(level: 1, outlined: false)[Abstract]
-    #text(size: 0.9em)[#abstracts.en]
+    #text(size: text-size)[#abstracts.en]
 
     #heading(level: 1, outlined: false)[Keywords]
-    #text(size: 0.9em)[#keywords.en]
+    #text(size: text-size)[#keywords.en]
   ]
 
   context place(
@@ -171,8 +177,11 @@
 }
 
 #let psl-thesis-covers(
-  // The thesis title.
-  title: [PhD title],
+  // The thesis titles, in French and English.
+  titles: (
+    fr: [Titre],
+    en: [Title],
+  ),
   // The thesis author.
   author: [Thesis author],
   // The defense date.
@@ -214,22 +223,29 @@
     fr: [Keywords in French],
     en: [Keywords in English],
   ),
+  // The back cover text size.
+  back-text-size: 10pt,
+  // The front cover margins.
+  front-margin: (left: 2cm, right: 1.5cm, top: 2cm, bottom: 6cm),
+  // The back cover margins.
+  back-margin: (left: 2cm, right: 1.5cm, top: 2cm, bottom: 4.5cm),
   // The thesis body.
   doc,
 ) = {
   psl-front-cover(
     author: author,
-    title: title,
+    titles: titles,
     institute: institute,
     institute-logo: institute-logo,
     doctoral-school: doctoral-school,
     specialty: specialty,
     date: date,
     jury: jury,
+    margin: front-margin,
   )
 
   doc
 
   pagebreak(to: "odd", weak: false)
-  psl-back-cover(abstracts: abstracts, keywords: keywords)
+  psl-back-cover(abstracts: abstracts, keywords: keywords, margin: back-margin, text-size: back-text-size)
 }

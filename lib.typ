@@ -16,6 +16,8 @@
   author: [Thesis author],
   // The institution name.
   institute: [Institute name],
+  // The institute name text size.
+  institute-text-size: 14pt,
   // Path to the institute logo, or none.
   institute-logo: none,
   // The doctoral school name and number.
@@ -59,7 +61,10 @@
 
   // Institute name.
   v(5.6cm)
-  block(text(linguify("conducted_at", from: database) + [ #institute], fill: colors.psl), width: 10cm)
+  block(
+    text(linguify("conducted_at", from: database) + [ #institute], fill: colors.psl, size: institute-text-size),
+    width: 10cm,
+  )
 
   // Thesis title.
   v(0.5cm)
@@ -188,6 +193,8 @@
   date: [Defense date],
   // The institute where the thesis was prepared.
   institute: [Institute name],
+  // The institute name text size.
+  institute-text-size: 14pt,
   // A content (e.g. result of the `image` function) to place in the front cover footer,
   // or none.
   institute-logo: none,
@@ -236,6 +243,7 @@
     author: author,
     titles: titles,
     institute: institute,
+    institute-text-size: institute-text-size,
     institute-logo: institute-logo,
     doctoral-school: doctoral-school,
     specialty: specialty,
